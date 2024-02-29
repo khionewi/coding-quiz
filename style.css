@@ -58,6 +58,11 @@
     flex-wrap: wrap;
     justify-content: space-around;
   }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
   
   section {
     flex: 0 auto;
