@@ -1,12 +1,12 @@
 <!--Pseudocode
-//Create a start button
-//Create a timer
-//Create a question bank
-//Create a score
-//Create a high score
-//Create a submit button
+
+
+
+
+
+
 //Create a clear button
-//Create a restart button-->
+-->
 
 
 <!--Imported code from Web App Mini Project-->
@@ -14,24 +14,53 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Word Guess Game</title>
+    <title>Coding Quiz</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
   <body>
     <header>
-      <div class= "large-font">Word Guess Game</div>
+      <div class= "large-font">Coding Quiz</div>
+      <!--Create a start button-->
       <button class="start-button">Start</button>
     </header>
 
     <main>
       <section>
-        <div class="card word-guess">
-          <div class="large-font word-blanks">J _ v _ S c r_ _t</div>
+        <div class="card start">
+          <h2>Welcome to the Coding Quiz</h2>
+          <p>
+            You will be given a series of questions to answer. You have 10 seconds to answer each question. If you answer correctly, you will be awarded a point. If you answer incorrectly, you will lose a point. The game will end when you have answered all the questions or when the timer runs out. Good luck!
+          </p>
+        </div>
+      </section>
+      <!--//Create a question area-->
+      <section>
+        <div class="card question">
+          <h2>Question</h2>
+         <ul > 
+          
+          <li><button class="answer-button1">Answer1</button></li>
+          <li><button class="answer-button2">Answer2</button></li>
+          <li><button class="answer-button3">Answer3</button></li>
+          <li><button class="answer-button4">Answer4</button></li>
+        </ul>
+        
         </div>
       </section>
 
+      <!--//Create a results area-->
+      <section>
+        <div class="card results">
+          <h2>All Done!</h2>
+          <p>Your final score is <span class="final-score">0</span></p>
+          <!--//Create a high score-->
+          <input type="text" placeholder="Enter Initials" />
+          <!--//Create a submit button-->
+          <button class="submit-button">Submit</button>
+          
+        </div>
       <section>
         <div class="card results">
           <div class = "win-loss-container">
@@ -39,8 +68,10 @@
           <h2>Wins: <span class="win">0 </span> </h2>
           <h2>Losses: <span class="lose">0</span></h2>
         </div>
+        <!--//Create a restart button-->
           <button class="reset-button">Reset Score</button>
       </div>
+      <!--//Create a timer-->
           <div class= "card timer">
             <div class = "timer-text">
             <div class="large-font timer-count">10</div>
@@ -51,6 +82,6 @@
         </div>
       </section>
     </main>
-    <script src="assets/js/script.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
