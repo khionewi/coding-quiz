@@ -16,35 +16,197 @@
 //WHEN the game is over
 //THEN I can save my initials and score
 
+var wordBlank = document.querySelector(".word-blanks");
+var win = document.querySelector(".win");
+var lose = document.querySelector(".lose");
+var timerElement = document.querySelector(".timer-count");
+var startButton = document.querySelector(".start-button");
+
+var chosenWord = "";
+var numBlanks = 0;
+var winCounter = 0;
+var loseCounter = 0;
+var isWin = false;
+var timer;
+var timerCount;
+
 //Pseudocode
 
 //Create a function to initialize the game
+// Array of words the user will guess
+var words = ["variable","array", "modulus", "object", "function", "string", "boolean"];
+
+// The init function is called when the page loads 
+function init() {
+  getWins();
+  getlosses();
+}
 
 
 //Create a function to start the game
-
+function startGame() {
+  isWin = false;
+  timerCount = 10;
+  // Prevents start button from being clicked when round is in progress
+  startButton.disabled = true;
+  renderBlanks()
+  startTimer()
+}
 
 //Create a function to start the timer
+// Selects element by class
+var timeEl = document.querySelector(".time");
+
+// Selects element by id
+var mainEl = document.getElementById("main");
+
+var secondsLeft = 10;
+
+function setTime() {
+  // Sets interval in variable
+  var timerInterval = setInterval(function() {
+    secondsLeft--;
+    timeEl.textContent = secondsLeft + " seconds left till colorsplosion.";
+
+    if(secondsLeft === 0) {
+      // Stops execution of action at set interval
+      clearInterval(timerInterval);
+      // Calls function to create and append image
+      sendMessage();
+    }
+
+  }, 1000);
+}
+
+// Function to create and append colorsplosion image
+/ The setTimer function starts and stops the timer and triggers winGame() and loseGame()
+function startTimer() {
+  // Sets timer
+  timer = setInterval(function() {
+    timerCount--;
+    timerElement.textContent = timerCount;
+    if (timerCount >= 0) {
+      // Tests if win condition is met
+      if (isWin && timerCount > 0) {
+        // Clears interval and stops timer
+        clearInterval(timer);
+        winGame();
+      }
+    }
+    // Tests if time has run out
+    if (timerCount === 0) {
+      // Clears interval
+      clearInterval(timer);
+      loseGame();
+    }
+  }, 1000);
+}
+
+
+
 
 
 //Create a function to display the questions
+// Attach event listener to document to listen for key event
+document.addEventListener("keydown", function(event) {
+  // If the count is zero, exit function
+  if (timerCount === 0) {
+    return;
+  }
+  // Convert all keys to lower case
+  var key = event.key.toLowerCase();
+  var alphabetNumericCharacters = "abcdefghijklmnopqrstuvwxyz0123456789 ".split("");
+  // Test if key pushed is letter
+  if (alphabetNumericCharacters.includes(key)) {
+    var letterGuessed = event.key;
+    checkLetters(letterGuessed)
+    checkWin();
+  }
+});
 
 
 //Create a function to display the score
 
+// Updates win count on screen and sets win count to client storage
+function setWins() {
+  win.textContent = winCounter;
+  localStorage.setItem("winCount", winCounter);
+}
 
+// Updates lose count on screen and sets lose count to client storage
+function setLosses() {
+  lose.textContent = loseCounter;
+  localStorage.setItem("loseCount", loseCounter);
+}
+
+// These functions are used by init
+function getWins() {
+  // Get stored value from client storage, if it exists
+  var storedWins = localStorage.getItem("winCount");
+  // If stored value doesn't exist, set counter to 0
+  if (storedWins === null) {
+    winCounter = 0;
+  } else {
+    // If a value is retrieved from client storage set the winCounter to that value
+    winCounter = storedWins;
+  }
+  //Render win count to page
+  win.textContent = winCounter;
+}
+
+function getlosses() {
+  var storedLosses = localStorage.getItem("loseCount");
+  if (storedLosses === null) {
+    loseCounter = 0;
+  } else {
+    loseCounter = storedLosses;
+  }
+  lose.textContent = loseCounter;
+}
+
+function checkWin() {
+  // If the word equals the blankLetters array when converted to string, set isWin to true
+  if (chosenWord === blanksLetters.join("")) {
+    // This value is used in the timer function to test if win condition is met
+    isWin = true;
+  }
+}
 //Create a function to display the high score
 
 
 //Create a function to end the game
+// The winGame function is called when the win condition is met
+function winGame() {
+  wordBlank.textContent = "YOU WON!!!🏆 ";
+  winCounter++
+  startButton.disabled = false;
+  setWins()
+}
 
-
+// The loseGame function is called when timer reaches 0
+function loseGame() {
+  wordBlank.textContent = "GAME OVER";
+  loseCounter++
+  startButton.disabled = false;
+  setLosses()
+}
 //Create a function to submit the score
 
 
 //Create a function to clear the score
+// Bonus: Add reset button
+var resetButton = document.querySelector(".reset-button");
 
-
+function resetGame() {
+  // Resets win and loss counts
+  winCounter = 0;
+  loseCounter = 0;
+  // Renders win and loss counts and sets them into client storage
+  setWins()
+  setLosses()
+}
+// Attaches event listener to button
+resetButton.addEventListener("click", resetGame);
 //Create a function to restart the game
 
 //Imported code from Web App Mini Project
