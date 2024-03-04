@@ -1,11 +1,4 @@
 <!--Pseudocode
-
-
-
-
-
-
-//Create a clear button
 -->
 
 
@@ -22,17 +15,17 @@
   <body>
     <header>
       <div class= "large-font">Coding Quiz</div>
-      <!--Create a start button-->
-      <button class="start-button">Start</button>
-    </header>
+          </header>
 
     <main>
       <section>
         <div class="card start">
           <h2>Welcome to the Coding Quiz</h2>
           <p>
-            You will be given a series of questions to answer. You have 10 seconds to answer each question. If you answer correctly, you will be awarded a point. If you answer incorrectly, you will lose a point. The game will end when you have answered all the questions or when the timer runs out. Good luck!
+            You will be given a series of questions to answer. You have 90 seconds to answer all the questions. If you answer incorrectly, you will 5 seconds. The game will end when you have answered all the questions or when the timer runs out. Good luck!
           </p>
+          <!--Create a start button-->
+      <button class="start-button">Start</button>
         </div>
       </section>
       <!--//Create a question area-->
@@ -46,7 +39,13 @@
           <li><button class="answer-button3">Answer3</button></li>
           <li><button class="answer-button4">Answer4</button></li>
         </ul>
-        
+        <!--//Create a timer-->
+        <div class= "card timer">
+          <div class = "timer-text">
+          <div class="large-font timer-count">90</div>
+          <h3>seconds remaining</h3>
+        </div>
+        </ul>
         </div>
       </section>
 
@@ -57,10 +56,12 @@
           <p>Your final score is <span class="final-score">0</span></p>
           <!--//Create a high score-->
           <input type="text" placeholder="Enter Initials" />
+          <hr />
           <!--//Create a submit button-->
           <button class="submit-button">Submit</button>
-          
-        </div>
+          <!--////Create a clear button-->
+          <button class="clear-button">Clear</button>
+          </div>
       <section>
         <div class="card results">
           <div class = "win-loss-container">
@@ -71,12 +72,7 @@
         <!--//Create a restart button-->
           <button class="reset-button">Reset Score</button>
       </div>
-      <!--//Create a timer-->
-          <div class= "card timer">
-            <div class = "timer-text">
-            <div class="large-font timer-count">10</div>
-            <h3>seconds remaining</h3>
-          </div>
+      
         
           </div>
         </div>

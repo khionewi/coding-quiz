@@ -16,25 +16,20 @@
 //WHEN the game is over
 //THEN I can save my initials and score
 
-var wordBlank = document.querySelector(".word-blanks");
+
 var win = document.querySelector(".win");
 var lose = document.querySelector(".lose");
 var timerElement = document.querySelector(".timer-count");
 var startButton = document.querySelector(".start-button");
-
-var chosenWord = "";
-var numBlanks = 0;
 var winCounter = 0;
 var loseCounter = 0;
 var isWin = false;
 var timer;
 var timerCount;
 
-//Pseudocode
+
 
 //Create a function to initialize the game
-// Array of words the user will guess
-var words = ["variable","array", "modulus", "object", "function", "string", "boolean"];
 
 // The init function is called when the page loads 
 function init() {
@@ -46,27 +41,23 @@ function init() {
 //Create a function to start the game
 function startGame() {
   isWin = false;
-  timerCount = 10;
+  timerCount = 90;
   // Prevents start button from being clicked when round is in progress
   startButton.disabled = true;
-  renderBlanks()
   startTimer()
 }
 
 //Create a function to start the timer
-// Selects element by class
-var timeEl = document.querySelector(".time");
-
-// Selects element by id
-var mainEl = document.getElementById("main");
-
-var secondsLeft = 10;
+document.addEventListener("click", function(setTime) {
+  setTime();
+} 
+// The setTime function starts and stops the timer and triggers winGame() and loseGame()
 
 function setTime() {
   // Sets interval in variable
   var timerInterval = setInterval(function() {
     secondsLeft--;
-    timeEl.textContent = secondsLeft + " seconds left till colorsplosion.";
+    timeEl.textContent = secondsLeft + " seconds left.";
 
     if(secondsLeft === 0) {
       // Stops execution of action at set interval
@@ -75,11 +66,11 @@ function setTime() {
       sendMessage();
     }
 
-  }, 1000);
+  }, 90000);
 }
 
-// Function to create and append colorsplosion image
-/ The setTimer function starts and stops the timer and triggers winGame() and loseGame()
+
+// The setTimer function starts and stops the timer and triggers winGame() and loseGame()
 function startTimer() {
   // Sets timer
   timer = setInterval(function() {
@@ -99,31 +90,34 @@ function startTimer() {
       clearInterval(timer);
       loseGame();
     }
-  }, 1000);
+  }, 90000);
 }
-
-
-
 
 
 //Create a function to display the questions
 // Attach event listener to document to listen for key event
-document.addEventListener("keydown", function(event) {
+document.addEventListener("click", function(event) {
   // If the count is zero, exit function
   if (timerCount === 0) {
+    loseGame();
     return;
   }
-  // Convert all keys to lower case
-  var key = event.key.toLowerCase();
-  var alphabetNumericCharacters = "abcdefghijklmnopqrstuvwxyz0123456789 ".split("");
-  // Test if key pushed is letter
-  if (alphabetNumericCharacters.includes(key)) {
-    var letterGuessed = event.key;
-    checkLetters(letterGuessed)
+  /
+  // Test if button pushed is correct
+  if (addEventListener.includes(click)) {
+    var letterGuessed = event.click;
+    checkGuess(answerGuessed)
     checkWin();
   }
 });
 
+
+checkGuess(answerGuessed);
+if (answerGuessed === correctAnswer) {
+  winGame();
+} else {  
+  loseGame();
+}
 
 //Create a function to display the score
 
@@ -210,26 +204,59 @@ resetButton.addEventListener("click", resetGame);
 //Create a function to restart the game
 
 //Imported code from Web App Mini Project
-var wordBlank = document.querySelector(".word-blanks");
+var quizQuestion = document.querySelector(".quizQuestion");
 var win = document.querySelector(".win");
 var lose = document.querySelector(".lose");
 var timerElement = document.querySelector(".timer-count");
 var startButton = document.querySelector(".start-button");
 
-var chosenWord = "";
-var numBlanks = 0;
+// Variables to keep track of quiz state
 var winCounter = 0;
 var loseCounter = 0;
 var isWin = false;
 var timer;
 var timerCount;
 
-// Arrays used to create blanks and letters on screen
-var lettersInChosenWord = [];
-var blanksLetters = [];
 
-// Array of words the user will guess
-var words = ["variable","array", "modulus", "object", "function", "string", "boolean"];
+// Array of questions the user will guess
+function question(questionAsked, answerA, answerB, answerC, answerD, correctAnswer) {
+  this.questionAsked = questionAsked;
+  this.answerA = answerA;
+  this.answerB = answerB;
+  this.answerC = answerC;
+  this.answerD = answerD;
+  this.correctAnswer = correctAnswer;
+}
+ 
+var questions = [
+  new question("What does HTML stand for?", "A. Hyper Text Markup Language", "B. High-level Text Markup Language", "C. Hyperlink and Text Markup Language", "D. High-level Markup Language", "A"
+  new question("Which tag is used to define an unordered list in HTML?), "A) "<ul>", "B) "<ol>", "C) "<li>", "D) "<ul>", "A"),
+  new question("Which property is used in CSS to change the text color of an element?", "A) color", "B) text-color", "C) font-color", "D) textColor", "A"),
+  new question("How can you include external JavaScript code in an HTML document?", "A) Using the "<script>" tag with the src attribute pointing to the JavaScript file", "B) Using the "<link>" tag with the href attribute pointing to the JavaScript file", "C) Using the "<js>" tag with the src attribute pointing to the JavaScript file", "D) Using the "<script>" tag with the href attribute pointing to the JavaScript file", "A"),
+  new question("Which of the following is NOT a valid way to declare a variable in JavaScript?", "A) var x = 5;", "B) let x = 5;", "C) const x = 5;", "D) variable x = 5;", "D"),
+  new question("What does CSS stand for?", "A) Creative Style Sheets", "B) Computer Style Sheets", "C) Cascading Style Sheets", "D) Colorful Style Sheets", "C"),
+  new question("Which HTML tag is used to define the structure of a table?", "A) "<table>", "B) "<tr>", "C) "<td>", "D) "<th>", "A"),
+  new question("How can you add a comment in HTML?", "A) "<!--This is a comment-->", "B) `/`/This is a comment`/`/", "C) `/*This is a comment*/", "D) //This is a comment", "A"),
+  new question("Which property is used in CSS to control the spacing between lines of text?", "A) line-height", "B) text-spacing", "C) line-spacing", "D) spacing", "A"),
+  new question("How do you add a click event to an HTML button using JavaScript?", "A) "<button onclick="myFunction()">Click me</button>", "B) "<button click="myFunction()">Click me</button>", "C) "<button on_click="myFunction()">Click me</button>", "D) "<button event="myFunction()">Click me</button>", "A"),
+
+ ];
+
+<!-- // Function to render questions-->
+
+function showQuestions(questions, quizContainer){
+	for(var i=0; i<questions.length; i++){
+				answers = [];
+			for(letter in questions[i].answers){
+
+			// ...add an html radio button
+			answers.click(
+				
+			);
+		}
+
+}
+showQuestions(questions, quizContainer);
 
 // The init function is called when the page loads 
 function init() {
@@ -240,7 +267,8 @@ function init() {
 // The startGame function is called when the start button is clicked
 function startGame() {
   isWin = false;
-  timerCount = 10;
+  timerCount = 90;
+
   // Prevents start button from being clicked when round is in progress
   startButton.disabled = true;
   renderBlanks()
@@ -286,21 +314,6 @@ function startTimer() {
   }, 1000);
 }
 
-// Creates blanks on screen
-function renderBlanks() {
-  // Randomly picks word from words array
-  chosenWord = words[Math.floor(Math.random() * words.length)];
-  lettersInChosenWord = chosenWord.split("");
-  numBlanks = lettersInChosenWord.length;
-  blanksLetters = []
-  // Uses loop to push blanks to blankLetters array
-  for (var i = 0; i < numBlanks; i++) {
-    blanksLetters.push("_");
-  }
-  // Converts blankLetters array into a string and renders it on the screen
-  wordBlank.textContent = blanksLetters.join(" ")
-}
-
 // Updates win count on screen and sets win count to client storage
 function setWins() {
   win.textContent = winCounter;
@@ -337,42 +350,6 @@ function getlosses() {
   }
   lose.textContent = loseCounter;
 }
-
-function checkWin() {
-  // If the word equals the blankLetters array when converted to string, set isWin to true
-  if (chosenWord === blanksLetters.join("")) {
-    // This value is used in the timer function to test if win condition is met
-    isWin = true;
-  }
-}
-
-// Tests if guessed letter is in word and renders it to the screen.
-function checkLetters(letter) {
-  for (var i = 0; i < numBlanks; i++) {
-    if (chosenWord[i] === letter) {
-      blanksLetters[i] = letter;
-    }
-
-    wordBlank.textContent = blanksLetters.join(" ");
-  }
-}
-
-// Attach event listener to document to listen for key event
-document.addEventListener("keydown", function(event) {
-  // If the count is zero, exit function
-  if (timerCount === 0) {
-    return;
-  }
-  // Convert all keys to lower case
-  var key = event.key.toLowerCase();
-  var alphabetNumericCharacters = "abcdefghijklmnopqrstuvwxyz0123456789 ".split("");
-  // Test if key pushed is letter
-  if (alphabetNumericCharacters.includes(key)) {
-    var letterGuessed = event.key;
-    checkLetters(letterGuessed)
-    checkWin();
-  }
-});
 
 // Attach event listener to start button to call startGame function on click
 startButton.addEventListener("click", startGame);
